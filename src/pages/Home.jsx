@@ -1,9 +1,10 @@
 import React from "react";
+import { Cards } from "../component/Cards";
 
 const Home = () => {
   return (
     <div>
-      <h1 className="text-center text-5xl text-blue-600">Test</h1>
+      <Cards />
     </div>
   );
 };
