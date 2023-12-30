@@ -11,6 +11,9 @@ export function Cards() {
       .then((response) => {
         setProducts(response.data);
         console.log(response.data);
+      })
+      .catch((error) => {
+        toast.error("This didn't work.", error);
       });
   }, []);
 
