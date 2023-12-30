@@ -18,16 +18,19 @@ export function Cards() {
   }, []);
 
   return (
-    <div className="grid mb-3 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="container grid mb-3 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {products.map((item) => (
         <div
           key={item.id}
-          className="max-w-sm rounded overflow-hidden shadow-lg"
+          className="max-w-sm rounded overflow-hidden shadow-lg mb-1 border-gray-200 border-2"
         >
-          <img className="h-48 w-50 mx-auto object-cover" src={item.image} />
+          <img
+            className="h-48 w-50 mx-auto object-cover py-3 px-3"
+            src={item.image}
+          />
           <div className="px-6 py-4">
             <h1 className="font-bold text-xl mb-2">
-              {item.title.substring(0, 20)}
+              {item.title.substring(0, 20)}...
             </h1>
             <p className="text-gray-700 text-base">
               {item.description.substring(0, 150)}...
