@@ -37,9 +37,6 @@ function NavList() {
         </Typography>
       ))}
       <Button className="bg-blue-300 hover:bg-blue-600">Login</Button>
-      <Button className="bg-outline-blue hover:bg-gray-200 text-blue-500">
-        Register
-      </Button>
     </ul>
   );
 }
