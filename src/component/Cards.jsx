@@ -5,6 +5,7 @@ import { FaStar } from "react-icons/fa";
 export function Cards() {
   const [products, setProducts] = useState([]);
 
+  let componentMounted = true;
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_API_ECOMMERCE}/products`)
