@@ -6,6 +6,7 @@ import { Navbars } from "./Navbars";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 import { Footers } from "./Footers";
+import Category from "../pages/Category";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/product/:id" element={<Details />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/category/:category" element={<Category />} />
       </Routes>
       <Footers />
     </Router>

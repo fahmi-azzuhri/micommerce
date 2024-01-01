@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Navbar,
   Collapse,
@@ -9,18 +9,24 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { FaShop } from "react-icons/fa6";
+import axios from "axios";
 
 function NavList() {
-  const pages = [
-    { label: "Electronics", href: "#" },
-    { label: "Jewelery", href: "#" },
-    { label: "Men's clothing", href: "#" },
-    { label: "Women's clothing", href: "#" },
-  ];
+  const [category, setCategory] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_ECOMMERCE}/products/categories`)
+      .then((response) => {
+        setCategory(response.data);
+      })
+      .catch((error) => {
+        toast.error("This didn't work.", error);
+      });
+  }, []);
 
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      {pages.map((page, index) => (
+      {category.map((category, index) => (
         <Typography
           key={index}
           as="li"
@@ -28,12 +34,12 @@ function NavList() {
           color="blue-gray"
           className="p-1 font-medium text-blue-300 hover:text-blue-800"
         >
-          <a
-            href={page.href}
+          <Link
+            to={`/category/${category}`}
             className="flex items-center hover:text-blue-500 transition-colors"
           >
-            {page.label}
-          </a>
+            {category}
+          </Link>
         </Typography>
       ))}
       <Link to="/login">
