@@ -1,11 +1,14 @@
 import { Typography } from "@material-tailwind/react";
 import { FaHeart, FaShop } from "react-icons/fa6";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 export function Footers() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-white p-8">
-      <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between">
+    <footer className="w-full bg-gray-100 p-8">
+      <div className="bg-gray-100 flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between">
         <div className="flex flex-row items-center">
           <FaShop className="mr-2 h-5 w-5 text-blue-500" />
           <Typography
@@ -22,8 +25,8 @@ export function Footers() {
       <hr className="my-8 border-blue-gray-50" />
       <Typography color="blue-gray" className="text-center font-normal">
         <p className="flex flex-row flex-wrap items-center justify-center text-blue-400">
-          &copy; {year} Create with {""} <FaHeart className="text-red-500" />{" "}
-          {""} at Bekasi, Indonesia
+          &copy; {year} Create with {""}{" "}
+          <FaHeart className="text-red-500 mx-1" /> {""} at Bekasi, Indonesia
         </p>
       </Typography>
     </footer>
@@ -31,16 +34,21 @@ export function Footers() {
 }
 
 function NavList() {
-  const pages = [
-    { label: "Electronics", href: "#" },
-    { label: "Jewelery", href: "#" },
-    { label: "Men's clothing", href: "#" },
-    { label: "Women's clothing", href: "#" },
-  ];
+  const [category, setCategory] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_ECOMMERCE}/products/categories`)
+      .then((response) => {
+        setCategory(response.data);
+      })
+      .catch((error) => {
+        toast.error("This didn't work.", error);
+      });
+  }, []);
 
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      {pages.map((page, index) => (
+      {category.map((category, index) => (
         <Typography
           key={index}
           as="li"
@@ -48,12 +56,12 @@ function NavList() {
           color="blue-gray"
           className="p-1 font-medium text-blue-300 hover:text-blue-800"
         >
-          <a
-            href={page.href}
+          <Link
+            to={`/category/${category}`}
             className="flex items-center hover:text-blue-500 transition-colors"
           >
-            {page.label}
-          </a>
+            {category}
+          </Link>
         </Typography>
       ))}
     </ul>
