@@ -54,9 +54,14 @@ const CartItem = ({ imageSrc, title, description, quantity, price }) => {
           className="w-32 h-32 object-cover"
         />
       </div>
-      <div className="mt-4 md:mt-0 md:ml-6">
-        <h2 className="text-lg font-bold">{title}</h2>
-        <p className="mt-2 text-gray-600">{description}</p>
+      <div className="mt-4 md:mt-0 md:ml-6 flex-grow">
+        <div className="flex justify-between">
+          <div>
+            <h2 className="text-lg font-bold">{title}</h2>
+            <p className="mt-2 text-gray-600">{description}</p>
+          </div>
+          <span className="text-xl font-bold">{price}</span>
+        </div>
         <div className="mt-4 flex items-center">
           <span className="mr-2 text-gray-600">Quantity:</span>
           <div className="flex items-center">
@@ -68,7 +73,6 @@ const CartItem = ({ imageSrc, title, description, quantity, price }) => {
               +
             </button>
           </div>
-          <span className="ml-auto font-bold">{price}</span>
         </div>
       </div>
     </div>
