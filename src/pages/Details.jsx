@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { FaStar } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
@@ -47,10 +47,12 @@ const Details = () => {
           {details.description}
         </p>
         <div className="flex gap-3">
-          <button className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded flex items-center gap-2">
-            <MdAddShoppingCart />
-            Add to cart
-          </button>
+          <Link to={"/cart"}>
+            <button className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded flex items-center gap-2">
+              <MdAddShoppingCart />
+              Add to cart
+            </button>
+          </Link>
           <button className="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">
             Buy now
           </button>
