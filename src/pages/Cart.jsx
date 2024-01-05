@@ -1,8 +1,25 @@
 import React from "react";
 
 const Cart = () => {
+  const cartItems = [
+    {
+      imageSrc: "https://picsum.photos/id/237/150/150",
+      title: "Product Title",
+      description: "Product Description",
+      quantity: 1,
+      price: "$20.00",
+    },
+    {
+      imageSrc: "https://picsum.photos/id/237/150/150",
+      title: "Product Title",
+      description: "Product Description",
+      quantity: 1,
+      price: "$15.00",
+    },
+  ];
+
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center">
         <h1 className="text-2xl font-bold my-4">Shopping Cart</h1>
         <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
@@ -10,24 +27,18 @@ const Cart = () => {
         </button>
       </div>
       <div className="mt-8">
-        <CartItem
-          imageSrc="https://picsum.photos/id/237/150/150"
-          title="Product Title"
-          description="Product Description"
-          quantity={1}
-          price="$20.00"
-        />
-        <CartItem
-          imageSrc="https://picsum.photos/id/237/150/150"
-          title="Product Title"
-          description="Product Description"
-          quantity={1}
-          price="$15.00"
-        />
+        {cartItems.map((item, index) => (
+          <CartItem key={index} {...item} />
+        ))}
       </div>
       <div className="flex justify-end items-center mt-8">
         <span className="text-gray-600 mr-4">Subtotal:</span>
-        <span className="text-xl font-bold">$35.00</span>
+        <span className="text-xl font-bold">
+          $
+          {cartItems
+            .reduce((total, item) => total + parseFloat(item.price.slice(1)), 0)
+            .toFixed(2)}
+        </span>
       </div>
     </div>
   );
