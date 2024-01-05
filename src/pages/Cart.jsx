@@ -22,9 +22,6 @@ const Cart = () => {
     <div className="container mx-auto">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center">
         <h1 className="text-2xl font-bold my-4">Shopping Cart</h1>
-        <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
-          Checkout
-        </button>
       </div>
       <div className="mt-8">
         {cartItems.map((item, index) => (
@@ -40,6 +37,9 @@ const Cart = () => {
             .toFixed(2)}
         </span>
       </div>
+      <button className="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded my-10">
+        Checkout
+      </button>
     </div>
   );
 };
