@@ -29,7 +29,7 @@ export function Cards() {
   };
 
   return (
-    <div className="container grid mb-3 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center">
+    <div className="container grid mb-3 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center mx-auto">
       {products.map((item) => (
         <div
           key={item.id}
