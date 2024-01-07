@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { FaStar } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
+import { Navigate } from "react-router-dom";
 
 const Details = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [details, setDetails] = useState({});
 
@@ -21,7 +23,7 @@ const Details = () => {
       });
   }, [id]);
 
-  const handleCart = (details) => {
+  const handleCart = (details, redirect) => {
     toast.success("Product added to cart.", {
       style: {
         borderRadius: "10px",
@@ -44,6 +46,9 @@ const Details = () => {
         "cart",
         JSON.stringify([...cart, { ...details, quantity: 1 }])
       );
+    }
+    if (redirect) {
+      navigate("/cart");
     }
   };
 
@@ -80,7 +85,10 @@ const Details = () => {
             <MdAddShoppingCart />
             Add to cart
           </button>
-          <button className="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">
+          <button
+            onClick={() => handleCart(details, true)}
+            className="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
+          >
             Buy now
           </button>
         </div>
