@@ -32,7 +32,7 @@ function NavList() {
           as="li"
           variant="small"
           color="blue-gray"
-          className="p-1 font-medium text-blue-300 hover:text-blue-800"
+          className="p-1 font-medium text-blue-300 hover:text-blue-800 capitalize"
         >
           <Link
             to={`/category/${category}`}

@@ -59,11 +59,8 @@ const Cart = () => {
                   <img class="h-24" src={cart.image} alt="" />
                 </div>
                 <div class="flex flex-col justify-between ml-4 flex-grow">
-                  <span class="font-bold text-sm"> {cart.title} </span>
-                  <span className="text-red-500 text-xs">
-                    {" "}
-                    {cart.category}{" "}
-                  </span>
+                  <span class="font-bold text-sm capitalize">{cart.title}</span>
+                  <span className="text-red-500 text-xs">{cart.category}</span>
                   <a
                     onClick={() => handleRemoveItem(cart.id)}
                     class="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
