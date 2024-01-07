@@ -21,6 +21,32 @@ const Details = () => {
       });
   }, [id]);
 
+  const handleCart = (details) => {
+    toast.success("Product added to cart.", {
+      style: {
+        borderRadius: "10px",
+        background: "#333",
+        color: "#fff",
+      },
+    });
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const isProductExist = cart.find((item) => item.id === details.id);
+    if (isProductExist) {
+      const newCart = cart.map((item) => {
+        if (item.id === details.id) {
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      });
+      localStorage.setItem("cart", JSON.stringify(newCart));
+    } else {
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([...cart, { ...details, quantity: 1 }])
+      );
+    }
+  };
+
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -47,12 +73,13 @@ const Details = () => {
           {details.description}
         </p>
         <div className="flex gap-3">
-          <Link to={"/cart"}>
-            <button className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded flex items-center gap-2">
-              <MdAddShoppingCart />
-              Add to cart
-            </button>
-          </Link>
+          <button
+            onClick={() => handleCart(details)}
+            className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded flex items-center gap-2"
+          >
+            <MdAddShoppingCart />
+            Add to cart
+          </button>
           <button className="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">
             Buy now
           </button>
