@@ -10,6 +10,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { FaShop } from "react-icons/fa6";
 import axios from "axios";
+import Hero from "./Hero";
 
 function NavList() {
   const [category, setCategory] = useState([]);
@@ -64,40 +65,45 @@ export function Navbars() {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-6 py-3 sticky top-0 z-50 bg-transparent mb-10">
-      <div className="flex items-center justify-between text-blue-900">
-        <Link to="/">
-          <div className="flex flex-row items-center">
-            <FaShop className="mr-2 h-5 w-5 text-blue-500" />
-            <Typography
-              as="a"
-              href="#"
-              variant="h6"
-              className="mr-4 cursor-pointer py-1.5 text-blue-500"
-            >
-              Micommerce
-            </Typography>
+    <>
+      <Navbar className="mx-auto max-w-screen-xl px-6 py-3 sticky top-0 z-50 bg-transparent">
+        <div className="flex items-center justify-between text-blue-900">
+          <Link to="/">
+            <div className="flex flex-row items-center">
+              <FaShop className="mr-2 h-5 w-5 text-blue-500" />
+              <Typography
+                as="a"
+                href="#"
+                variant="h6"
+                className="mr-4 cursor-pointer py-1.5 text-blue-500"
+              >
+                Micommerce
+              </Typography>
+            </div>
+          </Link>
+          <div className="hidden lg:block">
+            <NavList />
           </div>
-        </Link>
-        <div className="hidden lg:block">
-          <NavList />
+          <IconButton
+            variant="text"
+            className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+            ripple={false}
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+            ) : (
+              <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+            )}
+          </IconButton>
         </div>
-        <IconButton
-          variant="text"
-          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-          ripple={false}
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-          ) : (
-            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-          )}
-        </IconButton>
+        <Collapse open={openNav}>
+          <NavList />
+        </Collapse>
+      </Navbar>
+      <div className="mx-auto w-full mb-10">
+        <Hero />
       </div>
-      <Collapse open={openNav}>
-        <NavList />
-      </Collapse>
-    </Navbar>
+    </>
   );
 }

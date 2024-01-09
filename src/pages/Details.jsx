@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { FaStar } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
-import { Navigate } from "react-router-dom";
 
 const Details = () => {
   const navigate = useNavigate();
