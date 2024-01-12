@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 export function Register() {
   return (
-    <Card color="transparent" shadow={false} className="items-center">
+    <Card color="transparent" shadow={false} className="items-center mt-10">
       <Typography variant="h4" color="blue-gray">
         Sign Up
       </Typography>

@@ -10,7 +10,6 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { FaShop } from "react-icons/fa6";
 import axios from "axios";
-import Hero from "./Hero";
 
 function NavList() {
   const [category, setCategory] = useState([]);
@@ -101,9 +100,6 @@ export function Navbars() {
           <NavList />
         </Collapse>
       </Navbar>
-      <div className="mx-auto w-full mb-10">
-        <Hero />
-      </div>
     </>
   );
 }

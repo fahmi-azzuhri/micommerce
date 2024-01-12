@@ -33,7 +33,10 @@ const Category = () => {
 
   return (
     <>
-      <Typography variant="h4" className="mb-4 container">
+      <Typography
+        variant="h4"
+        className="mb-4 container capitalize mt-10 text-blue-500"
+      >
         {category} Products
       </Typography>
       <div className="container grid mb-3 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center">
