@@ -8,6 +8,7 @@ import { Register } from "../pages/Register";
 import { Footers } from "./Footers";
 import Category from "../pages/Category";
 import Cart from "../pages/Cart";
+import NotFound from "../pages/NotFound";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/category/:category" element={<Category />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/notfound" element={<NotFound />} />
       </Routes>
       <Footers />
     </Router>
