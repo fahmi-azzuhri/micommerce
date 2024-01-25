@@ -1,5 +1,5 @@
 import express from "express";
-
+import jwt from "jsonwebtoken";
 const app = express();
 app.use(express.json());
 
@@ -27,7 +27,17 @@ app.post("/api/login", (req, res) => {
   if (!user) {
     res.status(401).json("Invalid email or password");
   } else {
-    res.json(user);
+    const accessToken = jwt.sign(
+      {
+        id: user.id,
+        isAdmin: user.isAdmin,
+      },
+      "jwtkey"
+    );
+    res.json({
+      ...user,
+      accessToken,
+    });
   }
 });
 
