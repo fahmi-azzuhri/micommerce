@@ -6,13 +6,13 @@ app.use(express.json());
 const users = [
   {
     id: 1,
-    email: "fahmiazzuhri@example.com",
+    username: "fahmiazzuhri",
     password: "123456789",
     isAdmin: true,
   },
   {
     id: 2,
-    email: "azzuhri@example.com",
+    username: "azzuhri",
     password: "123456789",
     isAdmin: false,
   },
