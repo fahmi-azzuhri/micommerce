@@ -41,4 +41,20 @@ app.post("/api/login", (req, res) => {
   }
 });
 
+const verify = (req, res, next) => {
+  const authHeader = req.header.authorization;
+  if (authHeader) {
+    const token = authHeader.split("")[1];
+    jwt.verify(token, "jwtkey", (err, next) => {
+      if (err) {
+        res.status(403).json("Token invalid");
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    res.status(401).json("You are not authenticated");
+  }
+};
+
 app.listen(5000, () => console.log("Listening on port 3000"));
