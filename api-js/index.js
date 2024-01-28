@@ -42,9 +42,9 @@ app.post("/api/login", (req, res) => {
 });
 
 const verify = (req, res, next) => {
-  const authHeader = req.header.authorization;
+  const authHeader = req.headers.authorization;
   if (authHeader) {
-    const token = authHeader.split("")[1];
+    const token = authHeader.split(" ")[1];
     jwt.verify(token, "jwtkey", (err, user) => {
       if (err) {
         res.status(403).json("Token invalid");
@@ -56,5 +56,13 @@ const verify = (req, res, next) => {
     res.status(401).json("You are not authenticated");
   }
 };
+
+app.delete("/api/users/:userId", verify, (req, res) => {
+  if (req.user.id === req.params.userId || req.user.isAdmin) {
+    res.status(200).json("User has been deleted");
+  } else {
+    res.status(403).json("You can delete only your account");
+  }
+});
 
 app.listen(5000, () => console.log("Listening on port 3000"));
