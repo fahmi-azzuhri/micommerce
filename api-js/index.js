@@ -18,25 +18,45 @@ const users = [
   },
 ];
 
+let refreshTokens = [];
+
+const generateRefreshToken = (user) => {
+  return jwt.sign(
+    {
+      id: user.id,
+      isAdmin: user.isAdmin,
+    },
+    "jwtkeyrefresh"
+  );
+};
+
+const generateAccessToken = (user) => {
+  return jwt.sign(
+    {
+      id: user.id,
+      isAdmin: user.isAdmin,
+    },
+    "jwtkeyaccess",
+    { expiresIn: "40m" }
+  );
+};
+
 app.post("/api/login", (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
   const user = users.find(
-    (user) => user.email === email && user.password === password
+    (user) => user.username === username && user.password === password
   );
 
   if (!user) {
-    res.status(401).json("Invalid email or password");
+    res.status(401).json("Invalid username or password");
   } else {
-    const accessToken = jwt.sign(
-      {
-        id: user.id,
-        isAdmin: user.isAdmin,
-      },
-      "jwtkey"
-    );
+    const accessToken = generateAccessToken(user);
+    const refreshToken = generateRefreshToken(user);
+    refreshTokens.push(refreshToken);
     res.json({
       ...user,
       accessToken,
+      refreshToken,
     });
   }
 });
@@ -45,7 +65,7 @@ const verify = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(" ")[1];
-    jwt.verify(token, "jwtkey", (err, user) => {
+    jwt.verify(token, "jwtkeyaccess", (err, user) => {
       if (err) {
         res.status(403).json("Token invalid");
       }
@@ -65,4 +85,29 @@ app.delete("/api/users/:userId", verify, (req, res) => {
   }
 });
 
-app.listen(5000, () => console.log("Listening on port 3000"));
+app.post("/api/refresh", (req, res) => {
+  const refreshToken = req.body.token;
+
+  if (!refreshToken) {
+    return res.status(401).json("You are not authenticated");
+  }
+  if (!refreshTokens.includes(refreshToken)) {
+    return res.status(403).json("Refresh token is not valid");
+  }
+  jwt.verify(refreshToken, "jwtkeyrefresh", (err, user) => {
+    if (err) {
+      console.log(err);
+    }
+    refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+    const newRefreshToken = generateRefreshToken(user);
+    const newAccessToken = generateAccessToken(user);
+
+    refreshTokens.push(newRefreshToken);
+    res.status(200).json({
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+    });
+  });
+});
+
+app.listen(5000, () => console.log("Listening on port 5000"));
