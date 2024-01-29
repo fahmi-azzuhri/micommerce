@@ -37,7 +37,7 @@ const generateAccessToken = (user) => {
       isAdmin: user.isAdmin,
     },
     "jwtkeyaccess",
-    { expiresIn: "40m" }
+    { expiresIn: "40s" }
   );
 };
 
@@ -110,4 +110,9 @@ app.post("/api/refresh", (req, res) => {
   });
 });
 
+app.post("/api/logout", verify, (req, res) => {
+  const refreshToken = req.body.token;
+  refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+  res.status(200).json("Logged out successfully");
+});
 app.listen(5000, () => console.log("Listening on port 5000"));
