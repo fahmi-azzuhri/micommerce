@@ -6,13 +6,13 @@ app.use(express.json());
 const users = [
   {
     id: 1,
-    username: "fahmiazzuhri",
+    email: "fahmiazzuhri@example.com",
     password: "123456789",
     isAdmin: true,
   },
   {
     id: 2,
-    username: "azzuhri",
+    email: "azzuhri@example.com",
     password: "123456789",
     isAdmin: false,
   },
@@ -42,13 +42,13 @@ const generateAccessToken = (user) => {
 };
 
 app.post("/api/login", (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   const user = users.find(
-    (user) => user.username === username && user.password === password
+    (user) => user.email === email && user.password === password
   );
 
   if (!user) {
-    res.status(401).json("Invalid username or password");
+    res.status(401).json("Invalid email or password");
   } else {
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
@@ -59,6 +59,33 @@ app.post("/api/login", (req, res) => {
       refreshToken,
     });
   }
+});
+
+app.post("/api/register", (req, res) => {
+  const { email, password } = req.body;
+  const searchUsers = users.find((user) => user.email === email);
+  if (searchUsers) {
+    return res.status(400).json("user already taken");
+  }
+
+  const newUser = {
+    id: users.length + 1,
+    email,
+    password,
+  };
+
+  users.push(newUser);
+
+  const accessToken = generateAccessToken(newUser);
+  const refreshToken = generateRefreshToken(newUser);
+
+  refreshTokens.push(refreshToken);
+
+  return res.json({
+    ...newUser,
+    accessToken,
+    refreshToken,
+  });
 });
 
 const verify = (req, res, next) => {
