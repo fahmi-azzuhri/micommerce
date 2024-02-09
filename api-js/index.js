@@ -1,7 +1,14 @@
 import express from "express";
 import jwt from "jsonwebtoken";
+import cors from "cors";
+
 const app = express();
 app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://micommerce.vercel.app"],
+  })
+);
 
 const users = [
   {
