@@ -11,7 +11,7 @@ export function Login() {
 
     try {
       const response = await fetch(
-        "https://micommerce-api.vercel.app/api/login",
+        `${import.meta.env.VITE_API_AUTH}/api/login`,
         {
           method: "POST",
           headers: {
