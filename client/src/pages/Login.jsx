@@ -1,11 +1,12 @@
 import { Card, Input, Typography, Button } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import useAuthStore from "../store/authStore";
 export function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const login = useAuthStore((state) => state.login);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -29,6 +30,10 @@ export function Login() {
         } else {
           throw new Error("Failed to login");
         }
+      }
+      if (response.ok) {
+        login(data.token);
+        navigate("/");
       }
       console.log("Login response:", data);
     } catch (error) {
