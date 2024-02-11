@@ -5,7 +5,6 @@ import { useState } from "react";
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [responseMessage, setResponseMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,15 +30,9 @@ export function Login() {
           throw new Error("Failed to login");
         }
       }
-
-      // Assuming the response contains the token or any indication of successful login
-      setResponseMessage(data.message);
-
-      // Log the response to the console
       console.log("Login response:", data);
     } catch (error) {
       console.error("Error logging in:", error.message);
-      // Handle error state, show error message to the user, etc.
     }
   };
 
