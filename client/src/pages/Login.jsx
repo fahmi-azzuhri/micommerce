@@ -1,46 +1,10 @@
 import { Card, Input, Typography, Button } from "@material-tailwind/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import useAuthStore from "../store/authStore";
+
 export function Login() {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const login = useAuthStore((state) => state.login);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_AUTH}/api/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          throw new Error("Unauthorized: Please check your credentials.");
-        } else {
-          throw new Error("Failed to login");
-        }
-      }
-      if (response.ok) {
-        login(data.token);
-        navigate("/");
-      }
-      console.log("Login response:", data);
-    } catch (error) {
-      console.error("Error logging in:", error.message);
-    }
-  };
-
   return (
     <Card color="transparent" shadow={false} className="items-center mt-10">
       <Typography variant="h4" color="blue-gray">
@@ -49,10 +13,7 @@ export function Login() {
       <Typography color="gray" className="mt-1 font-normal">
         Welcome back, please enter your details.
       </Typography>
-      <form
-        className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
-        onSubmit={handleSubmit}
-      >
+      <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
         <div className="mb-1 flex flex-col gap-6">
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Your Email

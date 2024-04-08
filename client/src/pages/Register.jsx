@@ -61,12 +61,12 @@ export function Register() {
               className="flex items-center font-normal"
             >
               I agree the
-              <a
+              <span
                 href="#"
                 className="font-medium transition-colors hover:text-gray-900"
               >
                 &nbsp;Terms and Conditions
-              </a>
+              </span>
             </Typography>
           }
           containerProps={{ className: "-ml-2.5" }}

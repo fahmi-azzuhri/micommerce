@@ -9,12 +9,10 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { FaShop } from "react-icons/fa6";
-import { BiCartAlt } from "react-icons/bi";
+// import { BiCartAlt } from "react-icons/bi";
 import axios from "axios";
-import useAuthStore from "../store/authStore";
 
 function NavList() {
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const [category, setCategory] = useState([]);
   useEffect(() => {
     axios
@@ -45,15 +43,13 @@ function NavList() {
           </Link>
         </Typography>
       ))}
-      {isLoggedIn ? (
-        <Link to="/cart">
-          <BiCartAlt className="h-6 w-6 text-blue-500 hover:text-blue-800" />
-        </Link>
-      ) : (
-        <Link to="/login">
-          <Button className="bg-blue-300 hover:bg-blue-600">Login</Button>
-        </Link>
-      )}
+      {/* 
+      <Link to="/cart">
+        <BiCartAlt className="h-6 w-6 text-blue-500 hover:text-blue-800" />
+      </Link> */}
+      <Link to="/login">
+        <Button className="bg-blue-300 hover:bg-blue-600">Login</Button>
+      </Link>
     </ul>
   );
 }

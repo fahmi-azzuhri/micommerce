@@ -61,12 +61,12 @@ const Cart = () => {
                 <div class="flex flex-col justify-between ml-4 flex-grow">
                   <span class="font-bold text-sm capitalize">{cart.title}</span>
                   <span className="text-red-500 text-xs">{cart.category}</span>
-                  <a
+                  <span
                     onClick={() => handleRemoveItem(cart.id)}
                     class="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
                   >
                     Remove
-                  </a>
+                  </span>
                 </div>
               </div>
               <div class="flex justify-center w-1/5">
