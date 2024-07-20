@@ -1,4 +1,4 @@
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../../components/product/ProductCard";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 export default function ProductPage() {

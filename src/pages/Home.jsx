@@ -1,6 +1,6 @@
 import React from "react";
 import hero from "../assets/img/hero.png";
-import ProductPage from "./ProductPage";
+import ProductPage from "./product/ProductPage";
 export default function Home() {
   return (
     <div>
