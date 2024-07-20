@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { Navbar, Button, IconButton, Collapse } from "@material-tailwind/react";
 import AppRoutes from "../routes";
+import { useNavigate } from "react-router-dom";
 
 export default function App() {
+  const navigate = useNavigate();
   const [openNav, setOpenNav] = React.useState(false);
 
   useEffect(() => {
@@ -11,7 +13,7 @@ export default function App() {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
-
+  const handleClick = () => navigate("/");
   const navList = (
     <ul className="mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <p as="li" variant="small" color="blue-gray" className="p-1 font-normal">
@@ -41,9 +43,12 @@ export default function App() {
     <div>
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
-          <p as="a" href="#" className="mr-4 cursor-pointer py-1.5 font-medium">
-            Material Tailwind
-          </p>
+          <a
+            onClick={handleClick}
+            className="mr-4 cursor-pointer py-1.5 font-medium"
+          >
+            Micommerce
+          </a>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
             <div className="flex items-center gap-x-1">
