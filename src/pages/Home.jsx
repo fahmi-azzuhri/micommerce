@@ -1,5 +1,6 @@
 import React from "react";
 import hero from "../assets/img/hero.png";
+import ProductPage from "./ProductPage";
 export default function Home() {
   return (
     <div>
@@ -20,6 +21,7 @@ export default function Home() {
           </div>
         </header>
       </div>
+      <ProductPage />
     </div>
   );
 }
